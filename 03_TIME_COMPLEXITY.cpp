@@ -8,7 +8,7 @@ int sum_in_range(int x, int y)
 {
     //  Experimental analysis : ------
     int result = 0;
-    for (int i=x; i<=y; i++)
+    for (int i = x; i <= y; i++)
     {
         result += i;
     }
