@@ -36,7 +36,7 @@ int factRecursion(int z)
 int main()
 {
     // by using normal function : ------------
-
+ 
     int x;
     cout << "Enter the value of x : ";
     cin >> x;
