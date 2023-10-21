@@ -1,51 +1,86 @@
-//                                            QUICK SORT
+//                                            QUICK SORT                                                //
 
 #include <iostream>
 using namespace std;
 
-int partition(int arr[], int first, int last)
+// function for array printing : ----
+void printArray(int a[], int n)
 {
-    int pivot = arr[last];
-    int i = first - 1;
-    int j = first;
-
-    for (; j < last; i++)
-    {
-        if (arr[j] < pivot)
-        {
-            i++;
-            swap(arr[i], arr[j]);
-        }
-    }
-    // now i pointing to the last element
-    // correct position for pivot will be - i+1
-    swap(arr[i + 1], arr[last]);
-    return i + 1;
-}
-
-void quickSort(int arr[], int first, int last)
-{
-    // base case
-    if (first >= last)
-    {
-        return;
-    }
-    // recursive case
-    int pi = partition(arr, first, last);
-    quickSort(arr, first, pi - 1);
-    quickSort(arr, pi + 1, last);
-}
-int main()
-{
-    int arr[] = {20, 12, 35, 16, 18, 30};
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    quickSort(arr, 0, n - 1);
-
-    cout << "The array is : ";
     for (int i = 0; i < n; i++)
     {
-        cout << arr[i] << "  , ";
+        cout << a[i] << "  ";
     }
-    cout << endl;
+    cout << "\n";
+}
+
+//  function for set the pivot element at right place : -----
+int partition(int a[], int low, int high)
+{
+    int pivot = a[low];
+    int i = low + 1;
+    int j = high;
+    int temp;
+    while (i < j)
+    {
+        while (a[i] <= pivot)
+        {
+            i++;
+        }
+        while (a[j] > pivot)
+        {
+            j--;
+        }
+        if (i < j)
+        {
+            temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+
+        // swap a[low] and a[j]: ------------
+        temp = a[low];
+        a[low] = a[j];
+        a[j] = temp;
+        return j;
+    }
+}
+
+//  function for quick sort : -------
+void quickSort(int a[], int low, int high)
+{
+    int partitionIndex; // index of pivot after partition
+    if (low < high)
+    {
+        partitionIndex = partition(a, low, high);
+        quickSort(a, low, partitionIndex - 1);  // sort left sub-array
+        quickSort(a, partitionIndex + 1, high); // sort right sub-array
+    }
+}
+
+//  this is main function : -----
+int main()
+{
+    int n;
+    cout << "Enter the size of the array : ";
+    cin >> n;
+    int a[n];
+    //     inserting the element of the array : ----
+    cout << "Enter element of the array : ";
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    int low = 0;
+    int high = n - 1;
+
+    // Printing array before sorting : ------
+    cout << "\nUnsorted array is : ";
+    printArray(a, n);
+
+    // calling quickSort function :-------
+    quickSort(a, low, high);
+
+    // Printing array after sorting : -------
+    cout << "\nSorted array is : ";
+    printArray(a, n);
 }
