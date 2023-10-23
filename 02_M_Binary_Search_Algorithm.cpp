@@ -53,30 +53,4 @@ int main()
             }
         }
     }
-    else if (a[Beg] >= a[End])
-    {
-        int Beg = 1;
-        int End = n;
-        while (Beg >= End)
-        {
-            int mid = int((Beg + End) / 2);
-            if (a[mid] == search)
-            {
-                cout << search << " found at the position : " << mid;
-                break;
-            }
-            else if (search > a[mid])
-            {
-                End = mid - 1;
-            }
-            else
-            {
-                Beg = mid + 1;
-            }
-        }
-    }
-    else
-    {
-        cout << search << " not found in the array. " << endl;
-    }
 }

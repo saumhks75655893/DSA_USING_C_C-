@@ -26,7 +26,7 @@ int main()
 
     // Selection sort algorithm : ------
 
-    for (int i = 1; i <= n - 1; i++)
+    for (int i = 0; i < n - 1; i++)
     {
         int min = a[i];
         int loc = i;
@@ -38,6 +38,7 @@ int main()
                 loc = j;
             }
         }
+        // swap a[i] with a[indexOfMin] // indexOfMin = loc
         if (a[loc] != a[i])
         {
             int temp = a[loc];

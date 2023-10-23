@@ -13,60 +13,58 @@ void displayArray(int a[], int n)
 }
 
 // function for merging the element after breaking
-void merge(int arr[], int l, int mid, int r)
+int merge(int a[], int low, int mid, int high)
 {
-    int an = mid - l + 1;
-    int bn = r - mid;
-    //  create 2 temp arrays ;
-    int a[an];
-    int b[bn];
-
-    for (int i = 0; i < an; i++)
+    int i, j, k;
+    int n = low + high + 1;
+    i = low;
+    j = mid;
+    k = low;
+    int b[100];
+    while (i <= mid && j <= high)
     {
-        a[i] = arr[l + 1];
-    }
-    for (int j = 0; j < bn; j++)
-    {
-        b[j] = arr[mid + 1 + j];
-    }
-
-    int i = 0;  // initial index of first subarray, a
-    int j = 0;  // initial index of second subarray, b
-    int k = l;  // initial index of merged subarray, arr
-    while (i < an && j < bn)
-    {
-        if (a[i] < b[j])
+        if (a[i] < a[j])
         {
-            arr[k++] = a[i++];
+            b[k] = a[i];
+            i++;
+            k++;
         }
         else
         {
-            arr[k++] = b[j++];
+            b[k] = a[j];
+            j++;
+            k++;
         }
     }
-    while (i < an)
+    while (i <= mid)
     {
-        arr[k++] = a[i++];
+        b[k] = a[i];
+        i++;
+        k++;
     }
-    while (j < bn)
+    while (j <= high)
     {
-        a[k++] = a[j++];
+        b[k] = a[j];
+        j++;
+        k++;
+    }
+
+    for(int i=low; i<=high;i++)
+    {
+        a[i] = b[i]; 
     }
 }
-
 // function for merge sort.
 void mergeSort(int a[], int start, int end)
 {
     //  base case
-    if (start >= end)
+    if (start < end)
     {
-        return;
+        int mid = int((start + end) / 2);
+        mergeSort(a, start, mid);
+        mergeSort(a, mid + 1, end);
+        merge(a, start, mid, end);
     }
-
-    int mid = (start + end) / 2;
-    mergeSort(a, start, mid);
-    mergeSort(a, mid + 1, end);
-    merge(a, start, mid, end);
 }
 int main()
 {
