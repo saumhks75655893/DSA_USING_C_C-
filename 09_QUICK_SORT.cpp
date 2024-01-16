@@ -17,45 +17,56 @@ void printArray(int a[], int n)
 int partition(int a[], int low, int high)
 {
     int pivot = a[low];
-    int i = low + 1;
-    int j = high;
-    int temp;
-    while (i < j)
+    int count = 0;
+    for (int i = low + 1; i <= high; i++)
     {
-        while (a[i] < pivot)
+        if (a[i] <= pivot)
+        {
+            count++;
+        }
+    }
+
+    int pivot_index = low + count;
+    swap(a[pivot_index], a[low]);
+
+    // left and right part handling
+
+    int i = low;
+    int j = high;
+    while (i < pivot_index && j > pivot_index)
+    {
+        while (a[i] <= pivot)
         {
             i++;
         }
         while (a[j] > pivot)
         {
-            j--;8
-            
+            j--;
         }
-        if (i < j)
+        if (i < pivot_index && j > pivot_index)
         {
-            temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
+            swap(a[i], a[j]);
+            i++;
+            j--;
         }
-
-        // swap a[low] and a[j]: ------------
-        temp = a[low];
-        a[low] = a[j];
-        a[j] = temp;
-        return j;
     }
 }
 
 //  function for quick sort : -------
 void quickSort(int a[], int low, int high)
 {
-    int partitionIndex; // index of pivot after partition
-    if (low < high)
+    if (low >= high)
     {
-        partitionIndex = partition(a, low, high);
-        quickSort(a, low, partitionIndex - 1);  // sort left sub-array
-        quickSort(a, partitionIndex + 1, high); // sort right sub-array
+        return;
     }
+
+    // index of pivot after partition
+    int p;
+    p = partition(a, low, high);
+    // sort left sub-array
+    quickSort(a, low, p - 1);
+    // sort right sub-array
+    quickSort(a, p + 1, high);
 }
 
 //  this is main function : -----
