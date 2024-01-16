@@ -22,13 +22,14 @@ int partition(int a[], int low, int high)
     int temp;
     while (i < j)
     {
-        while (a[i] <= pivot)
+        while (a[i] < pivot)
         {
             i++;
         }
         while (a[j] > pivot)
         {
-            j--;
+            j--;8
+            
         }
         if (i < j)
         {
