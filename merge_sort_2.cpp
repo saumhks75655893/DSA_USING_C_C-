@@ -1,6 +1,7 @@
 //  ------------------------ :            MERGE SORT                    : ------------------------------- //
 
 #include <bits/stdc++.h>
+#include<vector>
 using namespace std;
 
 //  printing function for array : ---------
@@ -73,9 +74,9 @@ int main()
     cout << "Enter the element of the array : ";
     for (int i = 0; i < n; i++)
     {
-        int num; 
-        cin>>num; 
-        a.push_back(num); 
+        int num;
+        cin >> num;
+        a.push_back(num);
     }
 
     // printing the unsorted array : ---------
@@ -90,5 +91,5 @@ int main()
     cout << "Sorted array is : ";
     printArray(a, n);
 
-    return 0; 
+    return 0;
 }

@@ -1,66 +1,73 @@
-//  ------------------------ :            MERGE SORT                    : ------------------------------- //
+//  ---------------------------- :            MERGE SORT                    : ------------------------------- //
 
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 //  printing function for array : ---------
-void printArray(vector<int> arr, int n)
+void printArray(int a[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        cout << arr[i] << "  ";
+        cout << a[i] << "  ";
     }
     cout << "\n";
 }
 
 //  merge function : -----------
 
-void Merge(vector<int> &arr, int low, int mid, int high)
+void Merge(int arr[], int low, int mid, int high)
 {
-    int i, j;
-    vector<int> temp;
-    i = low;
-    j = mid + 1;
-    while (i <= mid && j <= high)
+    int firstArraySize = low + mid + 1;
+    int secondArraySize = high - mid;
+
+    int firstArray[firstArraySize];
+    int secondArray[secondArraySize];
+
+    for (int i = 0; i < firstArraySize; i++)
     {
-        if (arr[i] <= arr[j])
+        firstArray[i] = arr[i - low];
+    }
+    for (int j = 0; j < secondArraySize; j++)
+    {
+        secondArray[j] = arr[mid + j + 1];
+    }
+
+    int i = 0, j = 0, m = low;
+
+    while (i < firstArraySize && j < secondArraySize)
+    {
+        if (firstArray[i] < secondArray[j])
         {
-            temp.push_back(arr[i]);
-            i++;
+            arr[m++] = firstArray[i++];
         }
         else
         {
-            temp.push_back(arr[j]);
-            j++;
+            arr[m++] = secondArray[j++];
         }
     }
-    while (i <= mid)
+    while (i < firstArraySize)
     {
-        temp.push_back(arr[i]);
-        i++;
+        arr[m++] = firstArray[i++];
     }
-    while (j <= high)
+    while(j < secondArraySize)
     {
-        temp.push_back(arr[j]);
-        j++;
-    }
-    for (int i = low; i <= high; i++)
-    {
-        arr[i] = temp[i - low];
+        arr[m++] = secondArray[j++]; 
     }
 }
 
 //  merge sort algorithm  : - - - - - - - - -- - - -  -- - -   -- - -  --  -- -- - - - -
-void mergeSort(vector<int> &arr, int low, int high)
+void mergeSort(int a[], int low, int high)
 {
-    if (low < high)
+    if (low >= high)
     {
-        int mid;
-        mid = int((low + high) / 2);
-        mergeSort(arr, low, mid);
-        mergeSort(arr, mid + 1, high);
-        Merge(arr, low, mid, high);
+        return;
     }
+
+    int mid;
+    mid = (low + high) / 2;
+    mergeSort(a, low, mid);
+    mergeSort(a, mid + 1, high);
+    Merge(a, low, mid, high);
 }
 //  main function : ---------
 int main()
@@ -68,27 +75,23 @@ int main()
     int n;
     cout << "Enter the size of the array : ";
     cin >> n;
-    vector<int> a;
+    int a[n+1];
     //  inserting the element of the array : -----
     cout << "Enter the element of the array : ";
     for (int i = 0; i < n; i++)
     {
-        int num; 
-        cin>>num; 
-        a.push_back(num); 
+        cin >> a[i];
     }
 
     // printing the unsorted array : ---------
     cout << "Unsorted array is : ";
     printArray(a, n);
 
-    //  merge algorithm call : ----------
+    //  mergeSort algorithm call : ----------
 
     int low = 0;
     int high = n - 1;
     mergeSort(a, low, high);
     cout << "Sorted array is : ";
     printArray(a, n);
-
-    return 0; 
 }
